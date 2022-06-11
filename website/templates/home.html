@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<br />
+<h1 align="center">Records</h1>
+<br />
+<div style="overflow-x:auto;">
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Record name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Hydrogen</th>
+      <th scope="col">Methane</th>
+      <th scope="col">Acetylene</th>
+      <th scope="col">Ethylene</th>
+      <th scope="col">Ethane</th>
+      <th scope="col">Carbon Monoxide</th>
+      <th scope="col">Carbon Dioxide</th>
+      <th scope="col">TDCG</th>
+      <th scope="col">Action</th>
+    </tr>
+    <tbody>
+      <ul class="list-group list-group-flush" id="records">
+        {% for record in user.records %}
+        <tr>
+          <td>{{ record.name }}</td>
+          <td>{{ record.date }}</td>
+          <td>{{ record.hydrogen }}</td>
+          <td>{{ record.methane }}</td>
+          <td>{{ record.acetylene }}</td>
+          <td>{{ record.ethylene }}</td>
+          <td>{{ record.ethane }}</td>
+          <td>{{ record.carbonmonoxide }}</td>
+          <td>{{ record.carbondioxide }}</td>
+          <td>{{ record.tdcg }}</td>
+          <td>
+            <button type="button" class="btn btn-light" onclick="startAnalyse({{ record.id }}, {{record.hydrogen}}, {{record.methane}}, {{record.acetylene}}, {{record.ethylene}}, {{record.ethane}}, {{record.carbonmonoxide}}, {{record.carbondioxide}})">
+              <i aria-hidden="true" class="fa fa-solid fa-check-square-o"></i></button>
+            <button type="button" class="btn btn-light" onclick=""><i class="fa fa-download"></i></button>
+            <button type="button" class="btn btn-light" onclick="deleteRecord({{ record.id }})"><i aria-hidden="true" class="fa fa-trash-o"></i></button>
+          </td>
+        </tr>
+        {% endfor %}
+      </ul>
+    </tbody>
+  <tr class="tr-light"></tr>
+  </thead>
+</table>
+</div>
+<br />
+<h4 align="center">Duval Triangle Analysis</h4>
+<div class="text-center">
+  <image src="{{ url_for('static', filename='images/dt1.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
+  <p1 class="font-weight-bold">Duval Triangle 1</p1>
+  <image src="{{ url_for('static', filename='images/dt4.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
+  <p1 class="font-weight-bold">Duval Triangle 4</p1>
+  <image src="{{ url_for('static', filename='images/dt5.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
+  <p1 class="font-weight-bold">Duval Triangle 5</p1>
+  <image src="{{ url_for('static', filename='images/dp1.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
+  <p1 class="font-weight-bold">Duval Pentagon 1</p1>
+  <image src="{{ url_for('static', filename='images/dp2.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
+  <p1 class="font-weight-bold">Duval Pentagon 2</p1>
+</div>
+<ul class="list-group list-group-flush" id="notes">
+  {% for note in user.notes %}
+  <li class="list-group-item">
+    {{ note.data }}
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
