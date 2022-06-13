@@ -12,7 +12,7 @@ function deleteRecord(recordId) {
     method:"POST",
     body: JSON.stringify({ recordId: recordId }),
   }).then((_res) => {
-    window.location.href = "/all-record";
+    window.location.href = "/";
   });
 }
 

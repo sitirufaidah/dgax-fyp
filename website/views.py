@@ -30,7 +30,7 @@ def delete_note():
     return jsonify({})
 
 
-@views.route('/all-record', methods=['GET', 'POST'])
+@views.route('/new-record', methods=['GET', 'POST'])
 @login_required
 def all_record():
     if request.method == 'POST':
@@ -90,6 +90,7 @@ def delete_record():
         if record.user_id == current_user.id:
             db.session.delete(record)
             db.session.commit()
+            flash('Record deleted!', category='success')
 
     return jsonify({})
 
@@ -113,8 +114,8 @@ def start_analyse():
             dt1(ethylene, methane, acetylene)
             dt4(methane, hydrogen, ethane)
             dt5(ethylene, methane, ethane)
-            pentagon1(hydrogen, acetylene, methane, ethylene, ethane)
-            pentagon2(hydrogen, acetylene, methane, ethylene, ethane)
+            pentagon1(ethane, hydrogen, acetylene, ethylene, methane)
+            pentagon2(ethane, hydrogen, acetylene, ethylene, methane)
             flash('Duval triangle analysis starting', category='success')
 
     return jsonify({})
@@ -477,8 +478,9 @@ def dt5(ethylene, methane, ethane):
     plt.savefig('website/static/images/dt5.png')
 
 
-def centroid(h2, c2h6, ch4, c2h4, c2h2):
+def centroid(c2h6, h2, c2h2, c2h4, ch4):
     gas = [c2h6, h2, c2h2, c2h4, ch4]
+    print(gas)
 
     total = sum(gas)
     count = 0
@@ -525,12 +527,15 @@ def centroid(h2, c2h6, ch4, c2h4, c2h2):
     cy = ((y[0] + y[1]) * a[0]) + ((y[1] + y[2]) * a[1]) + ((y[2] + y[3]) * a[2]) + ((y[3] + y[4]) * a[3]) + (
             (y[4] + y[0]) * a[4])
     Cy = cy * (1 / (6 * area))
+    print("Cx = ", Cx)
+    print("Cx = ", Cy)
 
-    return Cx, Cy, 1
+    return [Cx, Cy, 1]
 
 
-def pentagon1(h2, c2h6, ch4, c2h4, c2h2):
-    coordinate = centroid(h2, c2h6, ch4, c2h4, c2h2)
+def pentagon1(c2h6, h2, c2h2, c2h4, ch4):
+    coordinate = centroid(c2h6, h2, c2h2, c2h4, ch4)
+    print("The coordinate array pentagon 1 = ", coordinate)
 
     A = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
@@ -629,9 +634,11 @@ def pentagon1(h2, c2h6, ch4, c2h4, c2h2):
     plt.savefig('website/static/images/dp1.png')
 
 
-def pentagon2(h2, c2h6, ch4, c2h4, c2h2):
-    coordinate = centroid(h2, c2h6, ch4, c2h4, c2h2)
-    A = np.array([[1, 0, 1], [0, 1, 1], [0, 0, 1]])
+def pentagon2(c2h6, h2, c2h2, c2h4, ch4):
+    coordinate = centroid(c2h6, h2, c2h2, c2h4, ch4)
+    print("The coordinate array pentagon 2 = ", coordinate)
+
+    A = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
     #
     # Define a set of points for Duval triangle regions
