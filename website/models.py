@@ -32,3 +32,8 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     notes = db.relationship('Note')
     records = db.relationship('Record')
+
+#    def __init__(self, email, password, first_name):
+#        self.email = email
+#        self.password = password
+#        self.first_name = first_name
