@@ -36,8 +36,8 @@
           <td>
             <button type="button" class="btn btn-light" onclick="startAnalyse({{ record.id }}, {{record.hydrogen}}, {{record.methane}}, {{record.acetylene}}, {{record.ethylene}}, {{record.ethane}}, {{record.carbonmonoxide}}, {{record.carbondioxide}})">
               <i aria-hidden="true" class="fa fa-solid fa-check-square-o"></i></button>
-            <button type="button" class="btn btn-light" onclick=""><i class="fa fa-download"></i></button>
             <button type="button" class="btn btn-light" onclick="deleteRecord({{ record.id }})"><i aria-hidden="true" class="fa fa-trash-o"></i></button>
+            <button type="button" class="btn btn-light" onclick="">Test</button>
           </td>
         </tr>
         {% endfor %}
@@ -50,6 +50,8 @@
 <br />
 <h4 align="center">Duval Triangle Analysis</h4>
 <div class="text-center">
+
+  <button type="button" class="btn btn-light" onclick=""><i class="fa fa-download"></i> Click here to download </button>
   <image src="{{ url_for('static', filename='images/dt1.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
   <p1 class="font-weight-bold">Duval Triangle 1</p1>
   <image src="{{ url_for('static', filename='images/dt4.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
@@ -61,14 +63,5 @@
   <image src="{{ url_for('static', filename='images/dp2.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
   <p1 class="font-weight-bold">Duval Pentagon 2</p1>
 </div>
-<ul class="list-group list-group-flush" id="notes">
-  {% for note in user.notes %}
-  <li class="list-group-item">
-    {{ note.data }}
-    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </li>
-  {% endfor %}
-</ul>
+
 {% endblock %}

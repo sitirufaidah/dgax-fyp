@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
-from datetime import datetime
-from .models import Note, Record
+from .models import Record
 from . import db
 import json
 import numpy as np
@@ -17,17 +16,10 @@ def home():
     return render_template("home.html", user=current_user)
 
 
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-
-    return jsonify({})
+# @views.route("/greet", methods=["POST", "GET"])
+# def greet():
+#    flash("Hi Rufaidah, great to see you!", category='info')
+#    return render_template("home.html", user=current_user)
 
 
 @views.route('/new-record', methods=['GET', 'POST'])
@@ -35,9 +27,7 @@ def delete_note():
 def all_record():
     if request.method == 'POST':
         name = request.form.get('name')
-        date_user = request.form.get('date')
-        date_old = date_user.replace('T', ' ')
-        date_new = datetime.strptime(date_old, '%Y-%m-%d %H:%M')
+        date = (request.form.get('date'))
         hydrogen = request.form.get('hydrogen')
         methane = request.form.get('methane')
         acetylene = request.form.get('acetylene')
@@ -46,29 +36,25 @@ def all_record():
         carbonmonoxide = request.form.get('carbonmonoxide')
         carbondioxide = request.form.get('carbondioxide')
         tdcg = request.form.get('tdcg')
-        date = date_new
 
-        record = Record.query.filter_by(name=name).first()
-        if record:
-            flash('Name already exists.', category='error')
-        elif len(name) < 1:
-            flash('Record name is missing', category='error')
+        if len(name) < 1:
+            flash('All requirements must be filled', category='error')
         elif len(hydrogen) < 1:
-            flash('Hydrogen concentration is missing', category='error')
+            flash('All requirements must be filled', category='error')
         elif len(methane) < 1:
-            flash('Methane concentration is missing', category='error')
+            flash('All requirements must be filled', category='error')
         elif len(acetylene) < 1:
-            flash('Acetylene concentration is missing', category='error')
+            flash('All requirements must be filled', category='error')
         elif len(ethylene) < 1:
-            flash('Ethylene concentration is missing', category='error')
+            flash('All requirements must be filled', category='error')
         elif len(ethane) < 1:
-            flash('Ethane concentration is missing', category='error')
+            flash('All requirements must be filled', category='error')
         elif len(carbonmonoxide) < 1:
-            flash('Carbon monoxide concentration is missing', category='error')
+            flash('All requirements must be filled', category='error')
         elif len(carbondioxide) < 1:
-            flash('Carbon dioxide concentration is missing', category='error')
+            flash('All requirements must be filled', category='error')
         elif len(tdcg) < 1:
-            flash('TDCG is missing', category='error')
+            flash('All requirements must be filled', category='error')
         else:
             new_record = Record(
                 name=name, date=date, hydrogen=hydrogen, methane=methane, acetylene=acetylene, ethylene=ethylene,
@@ -353,7 +339,6 @@ def dt4(methane, hydrogen, ethane):
 
 
 def dt5(ethylene, methane, ethane):
-
     gas = percent_gas(ethylene, methane, ethane)
     x = gas[0]
     y = gas[1]

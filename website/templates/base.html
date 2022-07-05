@@ -67,6 +67,10 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    {% elif category == 'info' %}
+    <div class="text-left">
+      {{ message }}
+    </div>
     {% else %}
     <div class="alert alert-success alter-dismissable fade show" role="alert">
       {{ message }}
