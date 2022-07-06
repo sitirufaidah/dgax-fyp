@@ -721,3 +721,4 @@ def pentagon2(c2h6, h2, c2h2, c2h4, ch4):
     ax1.get_xaxis().set_visible(False)
     ax1.get_yaxis().set_visible(False)
     plt.savefig('website/static/images/dp2.png')
+

@@ -1,9 +1,11 @@
 {% extends "base.html" %} {% block title %}New Record{% endblock %} {% block content
 %}
+<br>
+<h2 align="center">Create new record</h2>
+
 <form method="POST">
   <br />
-  <h3 align="center">Create new record</h3>
-  <div class="form-group">
+  <div class="form-group form-inline" style="width: 30%">
     <label for="name">Record name</label>
     <input
       type="text"
@@ -12,9 +14,10 @@
       name="name"
       placeholder="Enter record name"
     />
+    <br>
   </div>
     <div class="form-group">
-    <label for="date">Date (YYYY-MM-DD hh:mm)</label>
+    <label for="date">Date (dd/mm/yyyy)</label>
     <input
       type="text"
       class="form-control"
