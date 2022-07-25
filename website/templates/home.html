@@ -38,7 +38,7 @@
               <button type="button" class="btn btn-light" onclick="startAnalyse({{ record.id }}, {{record.hydrogen}}, {{record.methane}}, {{record.acetylene}}, {{record.ethylene}}, {{record.ethane}}, {{record.carbonmonoxide}}, {{record.carbondioxide}})">
               <i aria-hidden="true" class="fa fa-solid fa-check-square-o"></i></button>
               <button type="button" class="btn btn-light ml-1" onclick=""><i class="fa fa-download"></i></button>
-            <button type="button" class="btn btn-light ml-1" onclick="deleteRecord({{ record.id }})"><i aria-hidden="true" class="fa fa-trash-o"></i></button>
+              <button type="button" class="btn btn-light ml-1" onclick="deleteRecord({{ record.id }})"><i aria-hidden="true" class="fa fa-trash-o"></i></button>
             </div>
 
           </td>
@@ -64,7 +64,7 @@
   <image src="{{ url_for('static', filename='images/dp2.png')}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"></image>
   <p1 class="font-weight-bold">Duval Pentagon 2</p1>
   <br>
-  <button type="button" class="btn btn-light" onclick=""><i class="fa fa-download"></i> Click here to download </button>
+  
 </div>
 
 {% endblock %}

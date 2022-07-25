@@ -16,13 +16,6 @@ def home():
     return render_template("home.html", user=current_user)
 
 
-# @views.route("/greet", methods=["POST", "GET"])
-# def greet():
-#    flash("Hi Rufaidah, great to see you!", category='info')
-#    flash("Hi Rufaidah, great to see you!", category='info')
-#    return render_template("home.html", user=current_user)
-
-
 @views.route('/new-record', methods=['GET', 'POST'])
 @login_required
 def all_record():
